@@ -1,31 +1,30 @@
 const $ = id => document.getElementById(id);
 
-const step1 = $("step1");
-const step2 = $("step2");
-const step3 = $("step3");
-
 const nameInput = $("nameInput");
-const toPwBtn = $("toPwBtn");
+const revealPwBtn = $("revealPwBtn");
 const nameHint = $("nameHint");
 
+const pwBox = $("pwBox");
 const namePreview = $("namePreview");
 const pwInput = $("pwInput");
 const unlockBtn = $("unlockBtn");
 const pwHint = $("pwHint");
-const backBtn = $("backBtn");
+
+const formPanel = $("formPanel");
+const confessPanel = $("confessPanel");
 
 const finalTitle = $("finalTitle");
 const typeText = $("typeText");
 const cursor = $("cursor");
 const answerTitle = $("answerTitle");
 const choices = $("choices");
-
 const yesBtn = $("yesBtn");
 const noBtn = $("noBtn");
+const finalHint = $("finalHint");
 
 const hearts = $("hearts");
 
-// 🔐 비밀번호(원하는 걸로 바꿔)
+// 🔐 접근 코드(원하는 걸로 바꿔)
 const PASSWORD = "0214";
 
 let targetName = "";
@@ -39,12 +38,7 @@ function eunNeun(name){
   return hasFinalConsonant(name) ? "은" : "는";
 }
 
-function show(a,b,c){
-  step1.classList.toggle("hidden", !a);
-  step2.classList.toggle("hidden", !b);
-  step3.classList.toggle("hidden", !c);
-}
-
+// 하트
 function popHearts(count=10){
   for(let i=0;i<count;i++){
     const h = document.createElement("div");
@@ -58,7 +52,7 @@ function popHearts(count=10){
   }
 }
 
-// 타이핑 효과
+// 타이핑
 async function typeWriter(text, speed=55){
   typeText.textContent = "";
   cursor.style.display = "inline-block";
@@ -70,13 +64,13 @@ async function typeWriter(text, speed=55){
     await new Promise(r => setTimeout(r, speed + extra));
   }
 
-  // 끝나면 선택지 표시
   answerTitle.style.display = "block";
   choices.style.display = "grid";
   popHearts(14);
 }
 
-toPwBtn.onclick = () => {
+/** 1) 이름 확인 → 비번 입력창 “등장” */
+revealPwBtn.onclick = () => {
   const v = nameInput.value.trim();
   if(!v){
     nameHint.textContent = "이름을 입력해줘!";
@@ -85,26 +79,40 @@ toPwBtn.onclick = () => {
   targetName = v;
   nameHint.textContent = "";
   namePreview.textContent = targetName;
-  pwInput.value = "";
-  pwHint.textContent = "";
-  show(false,true,false);
+
+  pwBox.classList.add("open");
+  pwBox.setAttribute("aria-hidden", "false");
+  pwInput.focus();
 };
 
-backBtn.onclick = () => show(true,false,false);
+/** 엔터로도 진행 */
+nameInput.addEventListener("keydown", (e)=>{
+  if(e.key === "Enter") revealPwBtn.click();
+});
+pwInput.addEventListener("keydown", (e)=>{
+  if(e.key === "Enter") unlockBtn.click();
+});
 
+/** 2) 비번 통과 → 고백 패널로 전환 + love 모드 ON */
 unlockBtn.onclick = () => {
   const pw = pwInput.value.trim();
   if(pw !== PASSWORD){
-    pwHint.textContent = "비밀번호가 틀렸어… 다시 입력해줘!";
+    pwHint.textContent = "코드가 일치하지 않아. 다시 입력해줘.";
     return;
   }
-
-  // 고백 화면으로 이동(분리)
   pwHint.textContent = "";
+
+  // 설문지 느낌 → 고백 느낌으로 전환
+  document.body.classList.add("love");
+
+  // 패널 전환
+  formPanel.classList.add("hidden");
+  confessPanel.classList.remove("hidden");
+
+  // 선택지 숨기고 타이핑 시작
+  finalHint.textContent = "";
   answerTitle.style.display = "none";
   choices.style.display = "none";
-
-  show(false,false,true);
 
   finalTitle.textContent = `${targetName}에게`;
 
@@ -112,16 +120,16 @@ unlockBtn.onclick = () => {
 `나 ${targetName}${eunNeun(targetName)} 당신을 좋아합니다.
 나랑 사귀자.`;
 
+  // 처음 전환 순간에도 살짝만(과하지 않게)
+  popHearts(8);
   typeWriter(msg, 55);
 };
 
-// ✅ 선택 시 "다음 페이지"로 이동
+/** 3) 선택 → 결과 페이지 이동 */
 yesBtn.onclick = () => {
-  // 이름 전달(결과 페이지에서 표시하고 싶으면 사용)
   sessionStorage.setItem("targetName", targetName);
   location.href = "result-yes.html";
 };
-
 noBtn.onclick = () => {
   sessionStorage.setItem("targetName", targetName);
   location.href = "result-no.html";
