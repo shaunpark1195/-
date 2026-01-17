@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>비밀 페이지</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <section class="card">
+
+      <!-- STEP 1 : 이름 입력 -->
+      <div class="step" id="step1">
+        <h1>이름을 알려줄래?</h1>
+        <p class="sub">이 페이지는 너를 위해 준비했어 🙂</p>
+
+        <div class="row">
+          <input id="nameInput" type="text" placeholder="이름 입력" maxlength="12" />
+          <button class="btn" id="toPwBtn">다음</button>
+        </div>
+
+        <p class="hint" id="nameHint"></p>
+      </div>
+
+      <!-- STEP 2 : 비밀번호 -->
+      <div class="step hidden" id="step2">
+        <h1><span id="namePreview"></span>, 비밀번호를 입력해줘</h1>
+        <p class="sub">맞히면 다음 페이지로 넘어가</p>
+
+        <div class="row">
+          <input id="pwInput" type="password" placeholder="비밀번호" maxlength="20" />
+          <button class="btn" id="unlockBtn">확인</button>
+        </div>
+
+        <p class="hint" id="pwHint"></p>
+        <button class="btn ghost" id="backBtn">← 뒤로</button>
+      </div>
+
+      <!-- STEP 3 : 고백(타이핑) + 선택 -->
+      <div class="step hidden" id="step3">
+        <h1 id="finalTitle">💗</h1>
+
+        <p class="big">
+          <span id="typeText"></span><span class="cursor" id="cursor">|</span>
+        </p>
+
+        <div class="divider"></div>
+
+        <p class="sub strong" id="answerTitle" style="display:none;">너의 답을 알려줘</p>
+        <div class="choices" id="choices" style="display:none;">
+          <button class="choice" id="yesBtn">응, 우리 사귀자 💕</button>
+          <button class="choice" id="noBtn">미안… 난 어려워 😢</button>
+        </div>
+
+        <p class="hint" id="finalHint"></p>
+      </div>
+
+    </section>
+
+    <div class="hearts" id="hearts" aria-hidden="true"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

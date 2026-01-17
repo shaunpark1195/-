@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🙂</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <section class="card center">
+      <h1 id="title">🙂 알겠어</h1>
+      <p class="big" id="msg">그럼… 그냥 친구로 지내자.</p>
+      <p class="sub">끝까지 봐줘서 고마워 🙂</p>
+    </section>
+  </main>
+
+  <script>
+    const name = sessionStorage.getItem("targetName");
+    if (name) document.getElementById("title").textContent = `🙂 ${name}의 선택`;
+  </script>
+</body>
+</html>
