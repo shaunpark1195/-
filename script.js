@@ -73,7 +73,7 @@ async function typeWriter(text, speed=55){
 revealPwBtn.onclick = () => {
   const v = nameInput.value.trim();
   if(!v){
-    nameHint.textContent = "이름을 입력해줘!";
+    nameHint.textContent = "이름을 입력해주세요";
     return;
   }
   targetName = v;
@@ -97,7 +97,7 @@ pwInput.addEventListener("keydown", (e)=>{
 unlockBtn.onclick = () => {
   const pw = pwInput.value.trim();
   if(pw !== PASSWORD){
-    pwHint.textContent = "코드가 일치하지 않아. 다시 입력해줘.";
+    pwHint.textContent = "코드가 일치하지 않습니다. 다시 입력해주십시오.";
     return;
   }
   pwHint.textContent = "";
@@ -114,11 +114,12 @@ unlockBtn.onclick = () => {
   answerTitle.style.display = "none";
   choices.style.display = "none";
 
-  finalTitle.textContent = `${targetName}에게`;
+  finalTitle.textContent = `💫`;
 
   const msg =
 `나 ${targetName}${eunNeun(targetName)} 당신을 좋아합니다.
-나랑 사귀자.`;
+
+"나랑 사귀자!"`;
 
   // 처음 전환 순간에도 살짝만(과하지 않게)
   popHearts(8);
