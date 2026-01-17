@@ -6,13 +6,15 @@
   <title>💞</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="love">
   <main class="wrap">
     <section class="card center">
-      <h1 id="title">💞 성공!</h1>
+      <div class="pill lovePill">RESULT</div>
+      <h1 id="title" class="title" style="margin-top:12px;">💞 성공!</h1>
       <p class="big" id="msg">고마워… 진짜 행복해!</p>
-      <p class="sub">오늘부터 1일 😳</p>
+      <p class="subtitle">오늘부터 1일 😳</p>
     </section>
+
     <div class="hearts" id="hearts" aria-hidden="true"></div>
   </main>
 
@@ -21,22 +23,20 @@
     const name = sessionStorage.getItem("targetName");
     if (name) document.getElementById("title").textContent = `💞 ${name}의 선택`;
 
-    function burstHearts(){
-      for(let i=0;i<40;i++){
+    function burst(){
+      for(let i=0;i<45;i++){
         const h = document.createElement("div");
         h.className = "heart";
         h.textContent = Math.random()>0.5 ? "💗" : "💞";
         h.style.left = Math.random()*100 + "vw";
         h.style.top = (70 + Math.random()*25) + "vh";
-        h.style.fontSize = (14 + Math.random()*18) + "px";
+        h.style.fontSize = (14 + Math.random()*20) + "px";
         hearts.appendChild(h);
         setTimeout(()=>h.remove(), 2400);
       }
     }
-
-    // 처음에 크게 한 번 + 계속 터지게
-    burstHearts();
-    setInterval(burstHearts, 700);
+    burst();
+    setInterval(burst, 650);
   </script>
 </body>
 </html>
