@@ -25,7 +25,7 @@ const finalHint = $("finalHint");
 const hearts = $("hearts");
 
 // 🔐 접근 코드(원하는 걸로 바꿔)
-const PASSWORD = "0214";
+const PASSWORD = "0817";
 
 let targetName = "";
 
